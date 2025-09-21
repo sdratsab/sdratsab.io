@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talk's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="desktop">
+        <div class="menu-bar">
+            <div class="menu-left">
+                <span class="apple-logo"></span>
+                <span class="menu-item">Finder</span>
+                <span class="menu-item">File</span>
+                <span class="menu-item">Edit</span>
+                <span class="menu-item">View</span>
+                <span class="menu-item">Go</span>
+                <span class="menu-item">Window</span>
+                <span class="menu-item">Help</span>
+            </div>
+            <div class="menu-right">
+                <span id="clock"></span>
+            </div>
+        </div>
+
+        <div class="icon" data-target="project1">
+            <img src="images/icon.png" alt="Folder Icon">
+            <p>photography</p>
+        </div>
+
+        <div class="icon" data-target="project2">
+            <img src="images/icon.png" alt="Folder Icon">
+            <p>digital art</p>
+        </div>
+        
+        <div class="icon" data-target="about">
+            <img src="images/icon.png" alt="Text Document Icon">
+            <p>About & Contact</p>
+        </div>
+
+    </div>
+
+    <div id="about-window" class="window" style="display:none;">
+        <div class="title-bar">
+            <div class="buttons">
+                <div class="close"></div>
+                <div class="minimize"></div>
+                <div class="maximize"></div>
+            </div>
+            <p class="title-text">About Me</p>
+        </div>
+        <div class="content">
+            <h1>About & Contact</h1>
+            <p>Hello! I am a photographer and digital artist.</p>
+            <p>I am currently available for commissions and collaborations.</p>
+            <br>
+            <p><strong>Contact Me:</strong></p>
+            <img src="https://api.lanyard.rest/v1/users/878712204269080648.png" alt="Discord Status">
+            <p>Discord: sdratsab</p>
+            <p>Instagram: <a href="https://www.instagram.com/Bipolarep" target="_blank">@Bipolarep</a></p>
+        </div>
+    </div>
+
+    <div id="project-window" class="window" style="display:none;">
+        <div class="title-bar">
+            <div class="buttons">
+                <div class="close"></div>
+                <div class="minimize"></div>
+                <div class="maximize"></div>
+            </div>
+            <p id="project-title" class="title-text">Project Title</p>
+        </div>
+        <div id="project-content" class="content gallery">
+            </div>
+    </div>
+
+    <div id="now-playing-window" class="window">
+        <div class="title-bar">
+            <div class="buttons">
+                <div class="close"></div>
+                <div class="minimize"></div>
+                <div class="maximize"></div>
+            </div>
+            <p class="title-text">Now Playing</p>
+        </div>
+        <div class="content now-playing-content">
+            <p>Fetching music...</p>
+        </div>
+    </div>
+
+    <div id="image-viewer-window" class="window" style="display: none;">
+        <div class="title-bar">
+            <div class="buttons">
+                <div class="close"></div>
+                <div class="minimize"></div>
+                <div class="maximize"></div>
+            </div>
+            <p class="title-text">Image Viewer</p>
+        </div>
+        <div class="content image-viewer-content">
+            <img id="viewer-image" src="" alt="Full size view">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+/* General Setup */
+body {
+    margin: 0;
+    font-family: 'Lucida Grande', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-image: url('images/98ef1c19f2080bf7985e38af0692cc4a.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    overflow: hidden;
+    color: #333;
+}
+
+#desktop {
+    padding-top: 40px;
+    padding-left: 20px;
+}
+
+/* Menu Bar */
+.menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 22px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+.apple-logo { font-weight: bold; margin-right: 15px; }
+.menu-item { margin: 0 8px; }
+.menu-right { padding-right: 10px; }
+
+/* Desktop Icons */
+.icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.icon img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+.icon p {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 2px 5px;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.icon:hover p {
+    background-color: rgba(34, 139, 34, 0.7); /* Forest Green */
+}
+
+/* Windows */
+.window {
+    position: absolute;
+    top: 100px;
+    left: 150px;
+    width: 600px;
+    max-width: 80vw;
+    height: 400px;
+    max-height: 70vh;
+    background-color: #ECECEC;
+    border: 1px solid #AAA;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    resize: both;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.title-bar {
+    width: 100%;
+    height: 25px;
+    background: linear-gradient(to bottom, #F8F8F8, #DEDEDE);
+    border-bottom: 1px solid #AAA;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: move;
+}
+.buttons {
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    display: flex;
+}
+.close, .minimize, .maximize {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+.close { background-color: #FF5F57; }
+.minimize { background-color: #FEBC2E; }
+.maximize { background-color: #28C840; }
+.title-text {
+    text-align: center;
+    width: 100%;
+    font-size: 13px;
+    margin: 0;
+    color: #444;
+}
+
+.content {
+    padding: 15px;
+    background-color: white;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+a {
+    color: #228B22; /* Forest Green */
+}
+
+/* Now Playing Window Styles */
+#now-playing-window {
+    top: auto;
+    left: auto;
+    right: 20px;
+    bottom: 20px;
+    width: 250px;
+    height: 100px;
+    resize: none;
+    z-index: 5;
+}
+
+.now-playing-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.now-playing-content img {
+    width: 64px;
+    height: 64px;
+    border-radius: 4px;
+}
+
+.track-info p {
+    margin: 0;
+}
+
+.track-info .song-title {
+    font-weight: bold;
+}
+
+.track-info .artist-name {
+    font-size: 12px;
+    color: #555;
+}
+
+/* Image Viewer Styles */
+#image-viewer-window {
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    max-width: 80vw;
+    max-height: 80vh;
+}
+
+.image-viewer-content {
+    padding: 5px;
+    background: #333;
+}
+
+#viewer-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
