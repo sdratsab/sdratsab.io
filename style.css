@@ -1,209 +1,184 @@
-/* General Setup */
-body {
-    margin: 0;
-    font-family: 'Lucida Grande', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-image: url('images/98ef1c19f2080bf7985e38af0692cc4a.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    overflow: hidden;
-    color: #333;
-}
+document.addEventListener('DOMContentLoaded', () => {
 
-#desktop {
-    padding-top: 40px;
-    padding-left: 20px;
-}
+    // --- YOUR CUSTOMIZED PROJECTS ---
+    const projects = [
+        {
+            id: 'project1',
+            title: 'photography',
+            images: [
+                'images/52AAC25F-72FF-452C-95F6-58B4FC2E5618-2.jpg',
+                'images/B460342B-324B-416D-883C-D12A7B4A96F4.jpg',
+                'images/IMGP5699.jpg_dimensions_7_by_5-2.jpg',
+                'images/IMGP9203.JPG',
+                'images/IMGP9208.JPG',
+                'images/IMGP9591-2.jpg'
+            ]
+        },
+        {
+            id: 'project2',
+            title: 'digital art',
+            images: [
+                'images/e008677578c160c060583d94affdb74b.png',
+                'images/ig bipolar ep.png',
+                'images/bea water color.png',
+                'images/quickb quick.png',
+                'images/feng.png',
+                'images/8.9.25.png',
+                'images/bea drawing idk.png',
+                'images/bea evagolion 3.png',
+                'images/bea uk.png',
+                'images/bea wheel.png',
+                'images/momoXbri.png',
+                'images/pbm ipod camo.png',
+                'images/pbm ipod2.png',
+                'images/pbm pink camo ipod.png',
+                'images/talks art.png',
+                'images/talks work 8.3.25.jpg',
+                'images/talktopia(withwatermark).png',
+                'images/Untitled-2.jpg'
+            ]
+        }
+    ];
+    // --- END OF CUSTOMIZATION ---
 
-/* Menu Bar */
-.menu-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 22px;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-    font-size: 13px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-.apple-logo { font-weight: bold; margin-right: 15px; }
-.menu-item { margin: 0 8px; }
-.menu-right { padding-right: 10px; }
 
-/* Desktop Icons */
-.icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80px;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-.icon img {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-}
-.icon p {
-    color: white;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 2px 5px;
-    border-radius: 3px;
-    text-align: center;
-    font-size: 12px;
-    margin-top: 5px;
-}
-.icon:hover p {
-    background-color: rgba(34, 139, 34, 0.7); /* Forest Green */
-}
+    const desktop = document.getElementById('desktop');
+    const projectWindow = document.getElementById('project-window');
+    const aboutWindow = document.getElementById('about-window');
+    const imageViewerWindow = document.getElementById('image-viewer-window');
+    const viewerImage = document.getElementById('viewer-image');
+    const allWindows = document.querySelectorAll('.window');
+    let highestZIndex = 10;
+    
+    // Live Clock for Memphis (CDT)
+    const clockElement = document.getElementById('clock');
+    function updateClock() {
+        const now = new Date();
+        const options = { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'America/Chicago' };
+        clockElement.textContent = now.toLocaleDateString('en-US', options);
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-/* Windows */
-.window {
-    position: absolute;
-    top: 100px;
-    left: 150px;
-    width: 600px;
-    max-width: 80vw;
-    height: 400px;
-    max-height: 70vh;
-    background-color: #ECECEC;
-    border: 1px solid #AAA;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    display: flex;
-    flex-direction: column;
-    resize: both;
-    overflow: hidden;
-    z-index: 10;
-}
+    // Function to bring a window to the front
+    const bringToFront = (windowEl) => {
+        highestZIndex++;
+        windowEl.style.zIndex = highestZIndex;
+    };
 
-.title-bar {
-    width: 100%;
-    height: 25px;
-    background: linear-gradient(to bottom, #F8F8F8, #DEDEDE);
-    border-bottom: 1px solid #AAA;
-    display: flex;
-    align-items: center;
-    position: relative;
-    cursor: move;
-}
-.buttons {
-    position: absolute;
-    left: 8px;
-    top: 6px;
-    display: flex;
-}
-.close, .minimize, .maximize {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 6px;
-    border: 1px solid rgba(0,0,0,0.2);
-}
-.close { background-color: #FF5F57; }
-.minimize { background-color: #FEBC2E; }
-.maximize { background-color: #28C840; }
-.title-text {
-    text-align: center;
-    width: 100%;
-    font-size: 13px;
-    margin: 0;
-    color: #444;
-}
+    // Handle opening windows
+    desktop.addEventListener('click', (e) => {
+        const icon = e.target.closest('.icon');
+        if (!icon) return;
 
-.content {
-    padding: 15px;
-    background-color: white;
-    flex-grow: 1;
-    overflow-y: auto;
-}
+        const targetId = icon.dataset.target;
+        let windowToOpen;
 
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
-}
+        if (targetId === 'about') {
+            windowToOpen = aboutWindow;
+        } else {
+            const project = projects.find(p => p.id === targetId);
+            if (project) {
+                const projectTitle = projectWindow.querySelector('#project-title');
+                const projectContent = projectWindow.querySelector('#project-content');
+                projectTitle.textContent = project.title;
+                projectContent.innerHTML = ''; // Clear previous images
+                project.images.forEach(imgPath => {
+                    const img = document.createElement('img');
+                    img.src = imgPath;
+                    img.alt = project.title;
 
-.gallery img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border: 1px solid #DDD;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
+                    img.addEventListener('dblclick', () => {
+                        viewerImage.src = imgPath;
+                        imageViewerWindow.style.display = 'flex';
+                        bringToFront(imageViewerWindow);
+                    });
 
-.gallery img:hover {
-    transform: scale(1.05);
-}
+                    projectContent.appendChild(img);
+                });
+                windowToOpen = projectWindow;
+            }
+        }
+        
+        if (windowToOpen) {
+            windowToOpen.style.display = 'flex';
+            bringToFront(windowToOpen);
+        }
+    });
 
-a {
-    color: #228B22; /* Forest Green */
-}
+    // Handle closing windows
+    document.querySelectorAll('.close').forEach(button => {
+        const window = button.closest('.window');
+        if (window.id !== 'now-playing-window') {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.style.display = 'none';
+            });
+        }
+    });
 
-/* Now Playing Window Styles */
-#now-playing-window {
-    top: auto;
-    left: auto;
-    right: 20px;
-    bottom: 20px;
-    width: 250px;
-    height: 100px;
-    resize: none;
-    z-index: 5;
-}
+    // Make windows draggable and bring to front on click
+    allWindows.forEach(windowEl => {
+        const titleBar = windowEl.querySelector('.title-bar');
+        let isDragging = false;
+        let offsetX, offsetY;
 
-.now-playing-content {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        windowEl.addEventListener('mousedown', () => bringToFront(windowEl));
 
-.now-playing-content img {
-    width: 64px;
-    height: 64px;
-    border-radius: 4px;
-}
+        titleBar.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - windowEl.offsetLeft;
+            offsetY = e.clientY - windowEl.offsetTop;
+        });
 
-.track-info p {
-    margin: 0;
-}
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                windowEl.style.left = `${e.clientX - offsetX}px`;
+                windowEl.style.top = `${e.clientY - offsetY}px`;
+            }
+        });
 
-.track-info .song-title {
-    font-weight: bold;
-}
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+    });
+    
+    // --- LAST.FM NOW PLAYING ---
+    const lastFm = {
+        apiKey: '5fe73ca039a7a9996fcf048788009098',
+        user: 'Lovingmachinee'
+    };
+    const nowPlayingContent = document.querySelector('.now-playing-content');
 
-.track-info .artist-name {
-    font-size: 12px;
-    color: #555;
-}
+    async function getNowPlaying() {
+        try {
+            const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastFm.user}&api_key=${lastFm.apiKey}&format=json&limit=1`);
+            const data = await response.json();
+            
+            if (data.recenttracks && data.recenttracks.track.length > 0) {
+                const track = data.recenttracks.track[0];
+                const artist = track.artist['#text'];
+                const title = track.name;
+                const albumArt = track.image[2]['#text']; 
+                
+                nowPlayingContent.innerHTML = `
+                    <img src="${albumArt || 'https://i.imgur.com/t27j21v.png'}" alt="Album Art">
+                    <div class="track-info">
+                        <p class="song-title">${title}</p>
+                        <p class="artist-name">${artist}</p>
+                    </div>
+                `;
+            } else {
+                nowPlayingContent.innerHTML = `<p>Nothing playing right now.</p>`;
+            }
+        } catch (error)
+        {
+            console.error("Error fetching Last.fm data:", error);
+            nowPlayingContent.innerHTML = `<p>Could not fetch music data.</p>`;
+        }
+    }
+    
+    getNowPlaying();
+    setInterval(getNowPlaying, 30000); 
 
-/* Image Viewer Styles */
-#image-viewer-window {
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    height: auto;
-    max-width: 80vw;
-    max-height: 80vh;
-}
-
-.image-viewer-content {
-    padding: 5px;
-    background: #333;
-}
-
-#viewer-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
+});
